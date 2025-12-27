@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # Infrastructure Services
+  postgres:
+    image: postgres:15
+    container_name: agri-postgres
+    environment:
+      POSTGRES_DB: agriconnect
+      POSTGRES_USER: agriconnect
+      POSTGRES_PASSWORD: agriconnect123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - agriconnect-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: agri-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - agriconnect-network
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: agri-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - agriconnect-network
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: agri-kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_CREATE_TOPICS: "job-created,labour-joined,payment-success,notification-sent"
+    depends_on:
+      - zookeeper
+    networks:
+      - agriconnect-network
+
+  # Monitoring Services
+  prometheus:
+    image: prom/prometheus
+    container_name: agri-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - agriconnect-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: agri-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - agriconnect-network
+
+  # Kafka UI for monitoring
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: agri-kafka-ui
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+    depends_on:
+      - kafka
+    networks:
+      - agriconnect-network
+
+volumes:
+  postgres_data:
+  grafana_data:
+
+networks:
+  agriconnect-network:
+    driver: bridge
