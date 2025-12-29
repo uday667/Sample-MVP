@@ -164,10 +164,10 @@ const HomePage: React.FC = () => {
       <Container maxWidth="lg" sx={{ mt: -6, mb: 8, position: 'relative', zIndex: 3 }}>
         <Grid container spacing={2}>
           {[
-            { src: 'https://images.unsplash.com/photo-1500937386664-56f3d81aa8cf?auto=format&fit=crop&w=900&q=60', label: 'Fresh Crops' },
+            { src: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=900&q=80', label: 'Fresh Crops' },
             { src: 'https://images.unsplash.com/photo-1519003300449-424ad0405076?auto=format&fit=crop&w=900&q=60', label: 'Farm Workers' },
             { src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=60', label: 'Harvest Time' },
-            { src: 'https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?auto=format&fit=crop&w=900&q=60', label: 'Heavy Equipment' },
+            { src: 'https://unsplash.com/photos/yellow-and-black-tractor-on-green-grass-field-during-daytime-YbBWmI4hZys', label: 'Heavy Equipment' },
           ].map((item, idx) => (
             <Grid key={idx} item xs={6} md={3}>
               <Paper
