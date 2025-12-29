@@ -90,20 +90,35 @@ const Navbar: React.FC = () => {
   const handleMoreClose = () => {
     setMoreAnchor(null);
   };
+  const navButtonStyle = (active = false, delay = 0) => ({
+    backgroundColor: active ? 'rgba(46,125,50,0.12)' : 'transparent',
+    color: 'rgba(14,11,10,0.86)',
+    fontWeight: 600,
+    fontSize: '0.98rem',
+    px: 2,
+    borderRadius: 2,
+    transition: 'background 0.18s, transform 0.12s',
+    animation: `${fadeIn} 0.7s ${delay}s`,
+    '&:hover': {
+      backgroundColor: 'rgba(46,125,50,0.14)',
+      transform: 'translateY(-2px)',
+      boxShadow: '0 6px 18px rgba(46,125,50,0.08)',
+    },
+  });
 
   return (
-  <AppBar
-    position="fixed"
-    elevation={0}
-    sx={{
-      background: 'transparent',
-      backdropFilter: 'blur(8px)',
-      WebkitBackdropFilter: 'blur(8px)',
-      borderBottom: '1px solid rgba(255,255,255,0.06)',
-      animation: `${fadeIn} 0.7s`,
-    }}
-  >
-  <Toolbar sx={{ minHeight: 72, animation: `${fadeIn} 0.7s` }}>
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        background: 'transparent',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        animation: `${fadeIn} 0.7s`,
+      }}
+    >
+      <Toolbar sx={{ minHeight: 72, animation: `${fadeIn} 0.7s` }}>
         <Typography
           variant="h5"
           component="div"
@@ -156,23 +171,14 @@ const Navbar: React.FC = () => {
           ))}
           <Button
             color="inherit"
-            sx={{
-              fontWeight: 700,
-              fontSize: '0.98rem',
-              px: 2,
-              borderRadius: 2,
-              ml: 1.5,
-              backgroundColor: moreAnchor ? 'rgba(46,125,50,0.12)' : 'transparent',
-              transition: 'background 0.18s, transform 0.12s',
-              animation: `${fadeIn} 0.7s ${(menuItems.length) * 0.06}s`,
-              boxShadow: moreAnchor ? '0 6px 18px rgba(46,125,50,0.08)' : 'none',
-            }}
             onClick={handleMoreOpen}
+            sx={navButtonStyle(Boolean(moreAnchor), menuItems.length * 0.06)}
             aria-controls={moreAnchor ? 'more-menu' : undefined}
             aria-haspopup="true"
           >
             More
           </Button>
+
           <Menu
             id="more-menu"
             anchorEl={moreAnchor}
@@ -246,17 +252,24 @@ const Navbar: React.FC = () => {
             </>
           ) : (
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <Button color="inherit" onClick={() => navigate('/login')}>
+              <Button
+                color="inherit"
+                onClick={() => navigate('/login')}
+                sx={navButtonStyle(location.pathname === '/login')}
+              >
                 Login
               </Button>
+
               <Button
-                variant="outlined"
-                sx={{ color: 'white', borderColor: 'white' }}
+                color="inherit"
                 onClick={() => navigate('/register')}
+                sx={navButtonStyle(location.pathname === '/register')}
               >
                 Register
               </Button>
             </Box>
+
+
           )}
 
           {/* Mobile Menu Button */}

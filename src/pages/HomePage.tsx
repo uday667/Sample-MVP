@@ -13,6 +13,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Avatar,
 } from '@mui/material';
 import {
   Agriculture,
@@ -26,50 +27,64 @@ import {
   Groups,
   LocalShipping,
   Campaign,
+  ArrowForward,
+  Check,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { Fab } from '@mui/material';
-import { Add } from '@mui/icons-material';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  // ...existing code...
+  const [visibleCards, setVisibleCards] = useState<number[]>([]);
+
+  useEffect(() => {
+    // Stagger animation on mount
+    features.forEach((_, index) => {
+      setTimeout(() => {
+        setVisibleCards((prev) => [...prev, index]);
+      }, index * 100);
+    });
+  }, []);
 
   const features = [
     {
-      icon: <Agriculture />,
+      icon: <Agriculture sx={{ fontSize: 48 }} />,
       title: 'Smart Matching',
       description: 'AI-powered matching between farmers and skilled laborers',
     },
     {
-      icon: <Work />,
+      icon: <Work sx={{ fontSize: 48 }} />,
       title: 'Task Management',
       description: 'Efficiently manage agricultural tasks and assignments',
     },
     {
-      icon: <Chat />,
+      icon: <Chat sx={{ fontSize: 48 }} />,
       title: 'AI Assistant',
       description: '24/7 AI-powered agricultural guidance and support',
     },
     {
-      icon: <Security />,
+      icon: <Security sx={{ fontSize: 48 }} />,
       title: 'Secure Payments',
       description: 'Safe and reliable payment processing system',
     },
     {
-      icon: <Groups />,
+      icon: <Groups sx={{ fontSize: 48 }} />,
       title: 'Middlemen Network',
       description: 'Centralized coordinators to mobilize labour quickly',
     },
     {
-      icon: <LocalShipping />,
+      icon: <LocalShipping sx={{ fontSize: 48 }} />,
       title: 'Tractor Hire',
       description: 'Rent tractors by fare or nearest distance',
     },
     {
-      icon: <Campaign />,
+      icon: <Campaign sx={{ fontSize: 48 }} />,
       title: 'Announcements',
       description: 'Govt circulars, weather alerts and market news',
+    },
+    {
+      icon: <Speed sx={{ fontSize: 48 }} />,
+      title: 'Quick Hiring',
+      description: 'Find workers in minutes, not days',
     },
   ];
 
@@ -83,51 +98,51 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    
-    <Box sx={{
-      minHeight: '100vh',
-      backgroundImage: 'url(https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1500&q=80)', // Large farming land with ox
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      position: 'relative',
-    }}>
-      
-      {/* Hero Section */}
-        <Box
-          sx={{
-            position: 'relative',
-            color: 'white',
-            py: 10,
-            textAlign: 'center',
-            background: 'linear-gradient(135deg, #43a047 0%, #fbc02d 100%)',
-          }}
-        >
-          <Container maxWidth="lg" sx={{ position: 'relative' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
-              <Box sx={{ mb: 3, borderRadius: 4, overflow: 'hidden', boxShadow: 3, border: '4px solid #fff', background: '#fff' }}>
-                <img
-                  src="https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif"
-                  alt="Farming GIF"
-                  style={{ width: '340px', height: '220px', objectFit: 'cover', display: 'block' }}
-                />
-              </Box>
-              <Typography variant="h1" component="h1" gutterBottom sx={{ color: '#fffde7', textShadow: '2px 2px 8px #388e3c' }}>
-                🌾 AgriConnect
-              </Typography>
-              <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 4, color: '#fffde7', textShadow: '1px 1px 6px #fbc02d' }}>
-                Connecting Farmers with Skilled Agricultural Workers
-              </Typography>
-              <Typography variant="h6" sx={{ mb: 4, opacity: 0.95, color: '#fffde7' }}>
-                The modern platform that bridges the gap between farmers and laborers<br />
-                <span style={{ color: '#ffe082' }}>AI-powered matching and seamless task management.</span>
-              </Typography>
+    <Box sx={{ minHeight: '100vh', background: '#f5f7fa' }}>
+      {/* Hero Section with Enhanced Gradient */}
+      <Box
+        sx={{
+          position: 'relative',
+          color: 'white',
+          py: 10,
+          textAlign: 'center',
+          background: 'linear-gradient(135deg, #43a047 0%, #2e7d32 50%, #fbc02d 100%)',
+        }}
+      >
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+            <Box
+              sx={{
+                mb: 3,
+                borderRadius: 4,
+                overflow: 'hidden',
+                boxShadow: 3,
+                border: '4px solid #fff',
+                background: '#fff',
+                animation: 'slideInDown 0.8s ease-out',
+              }}
+            >
+              <img
+                src="https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif"
+                alt="Farming GIF"
+                style={{ width: '340px', height: '220px', objectFit: 'cover', display: 'block' }}
+              />
             </Box>
-            <Box sx={{ position: 'relative', display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap', mt: 2 }}>
+            <Typography variant="h1" component="h1" gutterBottom sx={{ color: '#fffde7', textShadow: '2px 2px 8px #388e3c', fontWeight: 'bold', animation: 'slideInUp 0.8s ease-out' }}>
+              🌾 AgriConnect
+            </Typography>
+            <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 4, color: '#fffde7', textShadow: '1px 1px 6px #fbc02d', animation: 'slideInUp 1s ease-out' }}>
+              Connecting Farmers with Skilled Agricultural Workers
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, opacity: 0.95, color: '#fffde7', animation: 'slideInUp 1.2s ease-out' }}>
+              The modern platform that bridges the gap between farmers and laborers<br />
+              <span style={{ color: '#ffe082', fontWeight: 'bold' }}>AI-powered matching and seamless task management.</span>
+            </Typography>
+            <Box sx={{ position: 'relative', display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap', mt: 2, animation: 'slideInUp 1.4s ease-out' }}>
               <Button
                 variant="contained"
                 size="large"
-                sx={{ backgroundColor: '#fbc02d', color: '#388e3c', fontWeight: 'bold', boxShadow: 2 }}
+                sx={{ backgroundColor: '#fbc02d', color: '#388e3c', fontWeight: 'bold', boxShadow: 2, '&:hover': { transform: 'scale(1.05)' }, transition: 'all 0.3s' }}
                 onClick={() => navigate('/register')}
               >
                 Get Started
@@ -135,103 +150,76 @@ const HomePage: React.FC = () => {
               <Button
                 variant="outlined"
                 size="large"
-                sx={{ color: '#fffde7', borderColor: '#fffde7', fontWeight: 'bold' }}
+                sx={{ color: '#fffde7', borderColor: '#fffde7', fontWeight: 'bold', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' } }}
                 onClick={() => navigate('/tasks')}
               >
                 Browse Jobs
               </Button>
             </Box>
-          </Container>
-        </Box>
+          </Box>
+        </Container>
+      </Box>
 
-      {/* Image highlight strip */}
-        <Container maxWidth="lg" sx={{ mt: -6 }}>
+      {/* Image highlight strip with hover effects */}
+      <Container maxWidth="lg" sx={{ mt: -6, mb: 8, position: 'relative', zIndex: 3 }}>
         <Grid container spacing={2}>
           {[
-            'https://images.unsplash.com/photo-1500937386664-56f3d81aa8cf?auto=format&fit=crop&w=900&q=60',
-            'https://images.unsplash.com/photo-1519003300449-424ad0405076?auto=format&fit=crop&w=900&q=60',
-            'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=60',
-            'https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?auto=format&fit=crop&w=900&q=60',
-          ].map((src, idx) => (
+            { src: 'https://images.unsplash.com/photo-1500937386664-56f3d81aa8cf?auto=format&fit=crop&w=900&q=60', label: 'Fresh Crops' },
+            { src: 'https://images.unsplash.com/photo-1519003300449-424ad0405076?auto=format&fit=crop&w=900&q=60', label: 'Farm Workers' },
+            { src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=60', label: 'Harvest Time' },
+            { src: 'https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?auto=format&fit=crop&w=900&q=60', label: 'Heavy Equipment' },
+          ].map((item, idx) => (
             <Grid key={idx} item xs={6} md={3}>
-              <Paper sx={{
-                pt: '56.25%',
-                position: 'relative',
-                overflow: 'hidden',
-                borderRadius: 2,
-                boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
-              }}>
-                <Box component="img" src={src} alt="agri" sx={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }} />
+              <Paper
+                sx={{
+                  pt: '56.25%',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  borderRadius: 2,
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                    transform: 'translateY(-8px)',
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={item.src}
+                  alt={item.label}
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%)',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    p: 2,
+                    color: 'white',
+                  }}
+                >
+                  <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+                    {item.label}
+                  </Typography>
+                </Box>
               </Paper>
             </Grid>
           ))}
         </Grid>
       </Container>
-      {/* Location section: Map + Address for Kuraganipalli Old Age Home */}
-      <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Typography variant="h4" align="center" sx={{ mb: 3, color: '#388e3c', fontWeight: 'bold' }}>
-          Visit Kuraganipalli Old Age Home
-        </Typography>
 
-        <Grid container spacing={4} alignItems="stretch">
-          <Grid item xs={12} md={7}>
-            <Paper sx={{ height: '100%', overflow: 'hidden' }} className="agri-card">
-              <iframe
-                title="Kuraganipalli Old Age Home Map"
-                src="https://www.google.com/maps?q=Kuraganipalli%20Old%20Age%20Home&z=15&output=embed"
-                width="100%"
-                height="420"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-              ></iframe>
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} md={5}>
-            <Paper sx={{ p: 3, height: '100%' }} className="agri-card">
-              <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
-                Kuraganipalli Old Age Home
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                Kuraganipalli, Near [Landmark], [Taluk], [District], [State], India
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                <strong>PIN:</strong> 516XXX (please confirm exact PIN)
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Phone: +91-XXXXXXXXXX
-                <br />
-                Email: info@kuraganipalli.org
-              </Typography>
-
-              <Button
-                variant="contained"
-                className="agri-cta"
-                sx={{ mt: 3 }}
-                component="a"
-                href="https://www.google.com/maps/search/?api=1&query=Kuraganipalli+Old+Age+Home"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open in Maps
-              </Button>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-
-      {/* ...removed decor section... */}
-
-      {/* Features Section */}
+      {/* Features Section with Animation */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ color: '#388e3c', fontWeight: 'bold' }}>
+        <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ color: '#2e7d32', fontWeight: 'bold', mb: 1 }}>
           Why Choose AgriConnect?
         </Typography>
         <Typography variant="h6" textAlign="center" sx={{ mb: 6, color: '#8bc34a' }}>
@@ -240,65 +228,107 @@ const HomePage: React.FC = () => {
 
         <Grid container spacing={4}>
           {features.map((feature, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#fffde7', border: '2px solid #c8e6c9', boxShadow: 2 }}>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Box sx={{ color: '#43a047', mr: 2 }}>
-                      {feature.icon}
-                    </Box>
-                    <Typography variant="h5" component="h3" sx={{ color: '#388e3c', fontWeight: 'bold' }}>
-                      {feature.title}
-                    </Typography>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              lg={3}
+              key={index}
+              sx={{
+                opacity: visibleCards.includes(index) ? 1 : 0,
+                transform: visibleCards.includes(index) ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'all 0.6s ease-out',
+              }}
+            >
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  background: 'white',
+                  border: '2px solid #c8e6c9',
+                  boxShadow: 2,
+                  borderRadius: 2,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-12px) scale(1.02)',
+                    borderColor: '#43a047',
+                  },
+                  cursor: 'pointer',
+                }}
+              >
+                <CardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
+                  <Box sx={{ color: '#43a047', mb: 2 }}>
+                    {feature.icon}
                   </Box>
-                  <Typography variant="body1" sx={{ color: '#8bc34a' }}>
+                  <Typography variant="h5" component="h3" sx={{ color: '#2e7d32', fontWeight: 'bold', mb: 1 }}>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#666', lineHeight: 1.6 }}>
                     {feature.description}
                   </Typography>
                 </CardContent>
+                <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
+                  <ArrowForward sx={{ color: '#2e7d32', fontSize: 20 }} />
+                </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
       </Container>
+
       <Box sx={{ width: '100%', borderBottom: '2px dashed #ffe082', my: 4 }} />
 
-      {/* Benefits Section */}
+      {/* Benefits Section - Split Layout */}
       <Box sx={{ background: 'linear-gradient(90deg, #fbc02d 0%, #fffde7 100%)', py: 8 }}>
         <Container maxWidth="lg">
           <Grid container spacing={6} alignItems="center">
             <Grid item xs={12} md={6}>
-              <Typography variant="h3" component="h2" gutterBottom sx={{ color: '#388e3c', fontWeight: 'bold' }}>
+              <Typography variant="h3" component="h2" gutterBottom sx={{ color: '#2e7d32', fontWeight: 'bold' }}>
                 For Farmers
               </Typography>
-              <Typography variant="h6" sx={{ mb: 4, color: '#8bc34a' }}>
+              <Typography variant="h6" sx={{ mb: 4, color: '#8bc34a', fontWeight: '500' }}>
                 Find skilled agricultural workers when you need them most
               </Typography>
               <List>
                 {benefits.slice(0, 3).map((benefit, index) => (
-                  <ListItem key={index}>
+                  <ListItem key={index} sx={{ mb: 1 }}>
                     <ListItemIcon>
-                      <TrendingUp sx={{ color: '#43a047' }} />
+                      <Avatar sx={{ bgcolor: '#43a047', width: 32, height: 32 }}>
+                        <Check sx={{ color: 'white', fontSize: 18 }} />
+                      </Avatar>
                     </ListItemIcon>
-                    <ListItemText primary={benefit} sx={{ color: '#388e3c' }} />
+                    <ListItemText primary={benefit} sx={{ color: '#2e7d32', fontWeight: '500' }} />
                   </ListItem>
                 ))}
               </List>
               <Button
                 variant="contained"
                 size="large"
-                sx={{ mt: 2, backgroundColor: '#43a047', color: '#fffde7', fontWeight: 'bold', boxShadow: 2 }}
+                sx={{ mt: 2, backgroundColor: '#43a047', color: '#fffde7', fontWeight: 'bold', boxShadow: 2, '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 }, transition: 'all 0.3s' }}
                 onClick={() => navigate('/register')}
               >
                 Start as Farmer
               </Button>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Paper sx={{ p: 4, textAlign: 'center', background: '#fffde7', border: '2px solid #c8e6c9', boxShadow: 2 }}>
-                <People sx={{ fontSize: 80, color: '#43a047', mb: 2 }} />
-                <Typography variant="h4" gutterBottom sx={{ color: '#388e3c', fontWeight: 'bold' }}>
+              <Paper
+                sx={{
+                  p: 4,
+                  textAlign: 'center',
+                  background: '#fffde7',
+                  border: '2px solid #c8e6c9',
+                  boxShadow: 3,
+                  borderRadius: 2,
+                  animation: 'float 3s ease-in-out infinite',
+                }}
+              >
+                <People sx={{ fontSize: 100, color: '#43a047', mb: 2 }} />
+                <Typography variant="h4" gutterBottom sx={{ color: '#2e7d32', fontWeight: 'bold' }}>
                   Join Our Community
                 </Typography>
-                <Typography variant="body1" sx={{ color: '#8bc34a' }}>
+                <Typography variant="body1" sx={{ color: '#8bc34a', fontWeight: '500' }}>
                   Over 10,000 farmers and workers already connected
                 </Typography>
               </Paper>
@@ -306,18 +336,28 @@ const HomePage: React.FC = () => {
           </Grid>
         </Container>
       </Box>
-      {/* ...removed DecorPicker and FAB... */}
 
       {/* For Workers Section */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 4, textAlign: 'center', background: '#e3f2fd', border: '2px solid #90caf9', boxShadow: 2 }}>
-              <Work sx={{ fontSize: 80, color: '#fbc02d', mb: 2 }} />
+            <Paper
+              sx={{
+                p: 4,
+                textAlign: 'center',
+                background: '#e3f2fd',
+                border: '2px solid #90caf9',
+                boxShadow: 3,
+                borderRadius: 2,
+                animation: 'float 3s ease-in-out infinite',
+                animationDelay: '0.5s',
+              }}
+            >
+              <Work sx={{ fontSize: 100, color: '#fbc02d', mb: 2 }} />
               <Typography variant="h4" gutterBottom sx={{ color: '#1976d2', fontWeight: 'bold' }}>
                 Find Your Next Job
               </Typography>
-              <Typography variant="body1" sx={{ color: '#388e3c' }}>
+              <Typography variant="body1" sx={{ color: '#2e7d32', fontWeight: '500' }}>
                 Discover opportunities that match your skills
               </Typography>
             </Paper>
@@ -326,23 +366,25 @@ const HomePage: React.FC = () => {
             <Typography variant="h3" component="h2" gutterBottom sx={{ color: '#1976d2', fontWeight: 'bold' }}>
               For Agricultural Workers
             </Typography>
-            <Typography variant="h6" sx={{ mb: 4, color: '#388e3c' }}>
+            <Typography variant="h6" sx={{ mb: 4, color: '#2e7d32', fontWeight: '500' }}>
               Connect with farmers and grow your career
             </Typography>
             <List>
               {benefits.slice(3).map((benefit, index) => (
-                <ListItem key={index}>
+                <ListItem key={index} sx={{ mb: 1 }}>
                   <ListItemIcon>
-                    <Speed sx={{ color: '#fbc02d' }} />
+                    <Avatar sx={{ bgcolor: '#fbc02d', width: 32, height: 32 }}>
+                      <Check sx={{ color: '#1976d2', fontSize: 18 }} />
+                    </Avatar>
                   </ListItemIcon>
-                  <ListItemText primary={benefit} sx={{ color: '#1976d2' }} />
+                  <ListItemText primary={benefit} sx={{ color: '#1976d2', fontWeight: '500' }} />
                 </ListItem>
               ))}
             </List>
             <Button
               variant="contained"
               size="large"
-              sx={{ mt: 2, backgroundColor: '#fbc02d', color: '#1976d2', fontWeight: 'bold', boxShadow: 2 }}
+              sx={{ mt: 2, backgroundColor: '#fbc02d', color: '#1976d2', fontWeight: 'bold', boxShadow: 2, '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 }, transition: 'all 0.3s' }}
               onClick={() => navigate('/register')}
             >
               Start as Worker
@@ -352,28 +394,313 @@ const HomePage: React.FC = () => {
       </Container>
       <Box sx={{ width: '100%', borderBottom: '2px dashed #90caf9', my: 4 }} />
 
-      {/* CTA Section */}
+      {/* Categories Section with Images */}
+      <Box sx={{ py: 10, background: 'white' }}>
+        <Container maxWidth="lg">
+          <Typography
+            variant="h3"
+            component="h2"
+            gutterBottom
+            sx={{ textAlign: 'center', color: '#2e7d32', fontWeight: 'bold', mb: 6, animation: 'slideInDown 0.8s ease-out' }}
+          >
+            Agricultural Services
+          </Typography>
+
+          <Grid container spacing={3}>
+            {/* Fresh Crops */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  height: '100%',
+                  borderRadius: 3,
+                  boxShadow: 2,
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  transform: 'translateY(0)',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-8px)',
+                  },
+                  animation: 'slideInUp 0.8s ease-out',
+                }}
+              >
+                <Box
+                  sx={{
+                    height: 250,
+                    background: 'linear-gradient(135deg, #66bb6a 0%, #43a047 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1488459716781-6818f60ebb51?w=500&h=300&fit=crop"
+                    alt="Fresh Crops"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'rgba(0,0,0,0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Agriculture sx={{ fontSize: 60, color: 'white', filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.5))' }} />
+                  </Box>
+                </Box>
+                <CardContent sx={{ textAlign: 'center' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#2e7d32', mb: 1 }}>
+                    Fresh Crops
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#666' }}>
+                    Buy and sell fresh agricultural produce directly from farmers
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{ bgcolor: '#43a047', textTransform: 'capitalize' }}
+                    onClick={() => navigate('/tasks')}
+                  >
+                    Explore <ArrowForward sx={{ ml: 0.5, fontSize: 18 }} />
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+
+            {/* Farm Workers */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  height: '100%',
+                  borderRadius: 3,
+                  boxShadow: 2,
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  transform: 'translateY(0)',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-8px)',
+                  },
+                  animation: 'slideInUp 0.9s ease-out',
+                }}
+              >
+                <Box
+                  sx={{
+                    height: 250,
+                    background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&h=300&fit=crop"
+                    alt="Farm Workers"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'rgba(0,0,0,0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <People sx={{ fontSize: 60, color: 'white', filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.5))' }} />
+                  </Box>
+                </Box>
+                <CardContent sx={{ textAlign: 'center' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#f57c00', mb: 1 }}>
+                    Farm Workers
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#666' }}>
+                    Hire skilled and verified agricultural workers instantly
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{ bgcolor: '#ff9800', textTransform: 'capitalize' }}
+                    onClick={() => navigate('/labour-hire')}
+                  >
+                    Hire Now <ArrowForward sx={{ ml: 0.5, fontSize: 18 }} />
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+
+            {/* Harvest Time */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  height: '100%',
+                  borderRadius: 3,
+                  boxShadow: 2,
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  transform: 'translateY(0)',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-8px)',
+                  },
+                  animation: 'slideInUp 1s ease-out',
+                }}
+              >
+                <Box
+                  sx={{
+                    height: 250,
+                    background: 'linear-gradient(135deg, #fbc02d 0%, #f9a825 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=500&h=300&fit=crop"
+                    alt="Harvest Time"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'rgba(0,0,0,0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Work sx={{ fontSize: 60, color: 'white', filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.5))' }} />
+                  </Box>
+                </Box>
+                <CardContent sx={{ textAlign: 'center' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#f9a825', mb: 1 }}>
+                    Harvest Time
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#666' }}>
+                    Manage seasonal tasks and coordinate harvest operations
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{ bgcolor: '#fbc02d', color: '#333', textTransform: 'capitalize' }}
+                    onClick={() => navigate('/tasks')}
+                  >
+                    View Tasks <ArrowForward sx={{ ml: 0.5, fontSize: 18 }} />
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+
+            {/* Heavy Equipment */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  height: '100%',
+                  borderRadius: 3,
+                  boxShadow: 2,
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  transform: 'translateY(0)',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-8px)',
+                  },
+                  animation: 'slideInUp 1.1s ease-out',
+                }}
+              >
+                <Box
+                  sx={{
+                    height: 250,
+                    background: 'linear-gradient(135deg, #78909c 0%, #546e7a 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&h=300&fit=crop"
+                    alt="Heavy Equipment"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'rgba(0,0,0,0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <LocalShipping sx={{ fontSize: 60, color: 'white', filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.5))' }} />
+                  </Box>
+                </Box>
+                <CardContent sx={{ textAlign: 'center' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#546e7a', mb: 1 }}>
+                    Heavy Equipment
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#666' }}>
+                    Rent tractors and farm machinery on demand
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{ bgcolor: '#78909c', textTransform: 'capitalize' }}
+                    onClick={() => navigate('/tractor-hire')}
+                  >
+                    Rent Now <ArrowForward sx={{ ml: 0.5, fontSize: 18 }} />
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* CTA Section with Animation */}
       <Box
         sx={{
           background: 'linear-gradient(135deg, #43a047 0%, #fbc02d 100%)',
           color: 'white',
           py: 8,
           textAlign: 'center',
+          animation: 'slideInUp 0.8s ease-out',
         }}
       >
         <Container maxWidth="md">
           <Typography variant="h3" component="h2" gutterBottom sx={{ color: '#fffde7', fontWeight: 'bold', textShadow: '2px 2px 8px #388e3c' }}>
             Ready to Get Started?
           </Typography>
-          <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, color: '#fffde7' }}>
+          <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, color: '#fffde7', fontWeight: '500' }}>
             Join thousands of farmers and workers who are already using AgriConnect<br />
-            <span style={{ color: '#ffe082' }}>Streamline your agricultural operations today!</span>
+            <span style={{ color: '#ffe082', fontWeight: 'bold' }}>Streamline your agricultural operations today!</span>
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button
               variant="contained"
               size="large"
-              sx={{ backgroundColor: '#fbc02d', color: '#388e3c', fontWeight: 'bold', boxShadow: 2 }}
+              sx={{ backgroundColor: '#fbc02d', color: '#2e7d32', fontWeight: 'bold', boxShadow: 2, '&:hover': { transform: 'scale(1.05)' }, transition: 'all 0.3s' }}
               onClick={() => navigate('/register')}
             >
               Create Account
@@ -381,7 +708,7 @@ const HomePage: React.FC = () => {
             <Button
               variant="outlined"
               size="large"
-              sx={{ color: '#fffde7', borderColor: '#fffde7', fontWeight: 'bold' }}
+              sx={{ color: '#fffde7', borderColor: '#fffde7', fontWeight: 'bold', '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' } }}
               onClick={() => navigate('/chat')}
             >
               Try AI Assistant
